@@ -10,6 +10,8 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+const port = 5000
+
 // MongoDB URI
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.zvgp5.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
@@ -27,6 +29,10 @@ client.connect(err => {
         console.log(result.insertedCount);
         res.send(result)
       })
+  })
+
+  app.get('/', (req, res) => {
+    res.send('Hello World! WELCOME TO BACKEND DEVELOPMENT')
   })
 
   app.get('/products', (req, res) => {
@@ -62,4 +68,4 @@ client.connect(err => {
 // ▲▲ Full Mongo client with CRUD Operation ▲▲
 
 
-app.listen(5000, () => console.log('listening to port 4200'))
+app.listen(process.env.PORT || port);
